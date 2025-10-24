@@ -5,12 +5,12 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
 } from "./actionTypes";
-import Axios from "axios";
+import api from '../utils/api';
 
 export const signIn = (credentials, history) => {
   return async (dispatch) => {
     try {
-      const result = await Axios.post("/api/auth/signIn", credentials);
+      const result = await api.post("/api/auth/signIn", credentials);
       localStorage.setItem("user", JSON.stringify(result.data));
       dispatch({ type: LOGIN_SUCCESS, payload: result.data });
       history.push("/movies");
@@ -23,7 +23,7 @@ export const signIn = (credentials, history) => {
 export const signUp = (credentials, history) => {
   return async (dispatch) => {
     try {
-      const result = await Axios.post("/api/auth/signUp", credentials);
+      const result = await api.post("/api/auth/signUp", credentials);
       localStorage.setItem("user", JSON.stringify(result.data));
       dispatch({ type: SIGNUP_SUCCESS, payload: result.data });
       history.push("/movies");
