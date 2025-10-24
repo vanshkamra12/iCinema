@@ -1,10 +1,10 @@
-import Axios from "axios";
+import api from '../utils/api';
 import { GET_MOVIES_SUCCESS, GET_MOVIES_ERROR } from "./actionTypes";
 
 export const getMovies = () => {
   return async (dispatch) => {
     try {
-      const result = await Axios.get("/api/movies");
+      const result = await api.get("/api/movies");
       dispatch({ type: GET_MOVIES_SUCCESS, payload: result.data.movies });
     } catch (error) {
       dispatch({ type: GET_MOVIES_ERROR, error });
@@ -17,10 +17,10 @@ export const addMovie = (movie, history) => {
     console.log("Adding movie:", movie);
     const user = JSON.parse(localStorage.getItem("user"));
     const token = user ? user.accessToken : null;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const contentType = {
       headers: {
-        "content-type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        "content-type": "multipart/form-data"
       },
     };
     let formData = new FormData();

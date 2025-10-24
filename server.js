@@ -14,7 +14,10 @@ import movie from "./controller/movie.js";
 import genre from "./controller/genre.js";
 
 //To prevent CORS errors
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://icinema-dq94.onrender.com'],
+  credentials: true
+}));
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
